@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>zouChat</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #001122 0%, #223344 100%);
+            min-height: 100vh;
+            color: #000;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .subtitle {
+            margin-top: 10px;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .chat-area {
+            padding: 30px;
+        }
+        form {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        label {
+            width: 100%;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #555;
+        }
+        input[type="text"] {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            font-size: 1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 1em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 600;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .response-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-top: 20px;
+        }
+        .message {
+            margin: 15px 0;
+            padding: 10px 0;
+        }
+        .label {
+            font-weight: 700;
+            color: #667eea;
+            display: inline-block;
+            min-width: 80px;
+        }
+        .user-message {
+            background: #e3f2fd;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 5px 0;
+            border-left: 4px solid #2196F3;
+        }
+        .bot-message {
+            background: #f1f8e9;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 5px 0;
+            border-left: 4px solid #4CAF50;
+            white-space: pre-line;
+        }
+        .instructions {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff9800;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #f57c00;
+        }
+        .sample-questions {
+            margin-top: 15px;
+        }
+        .sample-questions button {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #f7e7ce;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .sample-questions button:hover {
+            background: #445a33;
+            color: white;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .sample-questions {
+            text-align: center; /* Center inline elements like button */
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+            form {
+                flex-direction: column;
+            }
+            input[type="text"] {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>0️⃣1️⃣ zouChat </h1>
+            <div class="subtitle">The first chatbot in Zou language <br> Zou to Zou chat, Zou-English translation</div>
+        </div>
+        
+        <div class="chat-area">
+            <div class="instructions">
+                <h3>💡 Terminal a Ding Khutzat (CLI):</h3>
+                <p>
+                        <h5>
+                        <ol>Na log out ut leh, "beita" type in.</ol>
+                        <ol>Browser run na: python3 app.py</ol>
+                        <ol>Unix terminal a run na: python3 zouChat.py</ol>
+                        <ol>English a run na: python3 zouChat.py --mode translate </ol>
+                        </h5>
+                </p>
+                
+
+
+            </div>
+
+            <form method="POST">
+                <label for="message">Na dotna te Zou ham in type in:</label>
+                <input type="text" id="message" name="message" placeholder="Tam nah na dotnate type in ..." required>
+                <button type="submit">Ask (Dotna) </button>
+            </form>
+
+            {% if user_input %}
+                <div class="response-box">
+                    <div class="message">
+                        <div class="user-message">
+                            <span class="label">Nangma:</span> {{ user_input }}
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="bot-message">
+                            <span class="label">zouChat:</span> {{ bot_response }} 
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function setQuestion(question) {
+            document.getElementById('message').value = question;
+        }
+        
+        // Auto-focus on input field
+        document.getElementById('message').focus();
+        
+        // Enter key submission
+        document.getElementById('message').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.querySelector('form').submit();
+            }
+        });
+    </script>
+        
+        
+        
+        
+        <div class="sample-questions">
+            <strong>Tam sample prompt te bawl in:</strong><br>
+            <h5>
+            <button type="button" onclick="setQuestion('AI toh kisai a tulai numei minthangte hing gen vawi')">Numei AI a siamte</button>
+            <button type="button" onclick="setQuestion('Na dam zel nai mah?')">Greeting</button>
+            <button type="button" onclick="setQuestion('Ada Lovelace na thei ngai ei?')">Numei minthang Ada</button>
+            <button type="button" onclick="setQuestion('Grace Murray Hopper na thei ngai e?')">Numei minthang Hopper</button>
+            
+            <button type="button" onclick="setQuestion('Plassey Gal bang kum a um e?')">khang thu</button>
+            <button type="button" onclick="setQuestion('Buxar Gal bang kum a um e?')">Gal thu</button>
+            <button type="button" onclick="setQuestion('AI bang chi prompt ding e?')">AI prompt</button>
+            
+            <button type="button" onclick="setQuestion('ASCII lamsau bang e?')">ASCII</button>
+            <button type="button" onclick="setQuestion('JEE bang china a hiai?')">JEE</button>
+            <button type="button" onclick="setQuestion('Generative AI bang a hiai?')">gen AI</button>
+            <button type="button" onclick="setQuestion('zouChat bang ni a kibawl khia e?')">zouChat</button>
+            <button type="button" onclick="setQuestion('Zou kristian te a dia JCA poimo na bang e?')">JCA</button>
+            <button type="button" onclick="setQuestion('North-East India (Mal-Suahlam) ah state bang zat a um ei?')">India Mal-Suahlam</button>
+            <button type="button" onclick="setQuestion('Andhra Pradesh state capital bang e?')">India: state capitals</button>
+            <button type="button" onclick="setQuestion('Greece gam capital bang e?')">Khovel: national capitals</button>
+            
+            <button type="button" onclick="setQuestion('Internet a data flow leh layer te na thei ei?')">Data Flow</button>
+            <button type="button" onclick="setQuestion('RFC bang ahiai?')">RFC & IETF</button>
+            <button type="button" onclick="setQuestion('RFC tanchin na thei ei?')">RFC: origins</button>
+            <button type="button" onclick="setQuestion('Computer theory a core four te na thei ei?')">Core Four</button>
+            <button type="button" onclick="setQuestion('Variable bang e?')">Variable</button>
+            <button type="button" onclick="setQuestion('Python a data structure bangbang e?')">Python data</button>
+            
+            <button type="button" onclick="setQuestion('Thupil tom khat hing gen vawi')">Thupil</button>
+            
+           
+            </h5>
+        </div>
+</body>
+</html>
